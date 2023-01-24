@@ -1,8 +1,10 @@
-import auth from '../components/auth';
+import Auth from '../components/Auth';
 
 const Login = () => {
     return (
-        <auth />
+        <>
+            <Auth />
+        </>
     )
 }
 
