@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
-import Dashboard from './Pages/dashboard'
+import Dashboard from './Pages/Dashboard'
 import { Route, Routes } from "react-router-dom"
 
 function App() {
