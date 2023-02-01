@@ -1,3 +1,5 @@
+import React from "react"
+
 const Auth = (props) => {
     return (
         <section className='overscroll-none md:p-10 p-4 '>
