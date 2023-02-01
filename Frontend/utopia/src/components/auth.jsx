@@ -1,8 +1,4 @@
-import { useState } from 'react'
-
 const Auth = (props) => {
-
-
     return (
         <section className='overscroll-none md:p-10 p-4 '>
             <div className='md:max-w-[80vw] max-w-[90vw] flex items-center md:p-6 justify-between mx-auto my-0 border-dark border-solid border-2 rounded-md md:h-[95vh] h-[100vh]   m-x-0 m-y-auto bg-white'>
