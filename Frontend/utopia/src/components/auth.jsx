@@ -4,8 +4,8 @@ const Auth = (props) => {
 
 
     return (
-        <section className='overscroll-none p-10'>
-            <div className='max-w-[80vw] flex items-center p-4 justify-between mx-auto my-0 border-dark border-solid border-2 rounded-md h-[90vh] m-x-0 m-y-auto bg-white'>
+        <section className='overscroll-none md:p-10 p-4 '>
+            <div className='md:max-w-[80vw] max-w-[90vw] flex items-center md:p-6 justify-between mx-auto my-0 border-dark border-solid border-2 rounded-md md:h-[95vh] h-[100vh]   m-x-0 m-y-auto bg-white'>
                 {/*first section*/}
                 <div className='first-section  justify-around flex-col item-center bg-primary w-[40%] h-[85vh] p-4 rounded-md hidden md:flex'>
                     <div className='flex items-center justify-left '>
@@ -38,7 +38,7 @@ const Auth = (props) => {
                     </div>
                 </div>
                 {/*second section*/}
-                <div className='w-[60%] pl-4 m-[20%] md:m-0'>
+                <div className='md:w-[60%] w-[100%] pl-4 m-[20%] md:m-0'>
                     {props.children}
                 </div>
             </div>
