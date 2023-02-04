@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import Events from '../components/events'
+import Events from '../components/Events'
 import Activity from '../components/Activity'
 
 const Dashboard = () => {
