@@ -41,17 +41,7 @@ const Login = () => {
                                 value={password}
                                 placeholder="•••••••••" required />
                         </div>
-                        {/* CONFIRM PASSWORD */}
-                        <div class="mb-6">
-                            <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 ">Confirm password</label>
-                            <input type="password" id="confirm_password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                                onChange={(e) => {
-                                    setConfirmPassword(e.target.value)
-                                }}
-                                value={confirmPassword}
-                                placeholder="•••••••••" required />
-                        </div>
+
                         {/* CHECKED */}
                         <div class="flex items-start mb-6">
                             <div class="flex items-center h-5">

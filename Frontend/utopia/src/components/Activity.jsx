@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Events = () => {
+const Activity = () => {
     return (
         <div className='flex items-center justify-center flex-col'>
-            events
+            Activity
         </div>
     )
 }
 
-export default Events
+export default Activity
