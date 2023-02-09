@@ -56,5 +56,5 @@ const Navbar = () => {
 
     )
 }
-
+// inside page dashboard
 export default Navbar

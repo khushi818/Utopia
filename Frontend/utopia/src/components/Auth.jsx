@@ -44,4 +44,5 @@ const Auth = (props) => {
     )
 }
 
+// used signup and login in place of children
 export default Auth
