@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-
 const Events = () => {
     const [room, setRoom] = useState([])
 
@@ -14,12 +13,10 @@ const Events = () => {
             .then(res => setRoom(res))
             .catch(error => console.log(error))
     }, [])
+
     return (
+        // <Navbar>
         <section className='flex items-center justify-center flex-col w-[50vw] pt-[8rem]'>
-            {/* use map here  */}
-            {/* {room.map((r) => {
-                return <h1>{r.name}</h1>
-            })} */}
             <div className='w-[100%] bg-grey p-8 rounded-xl'>
                 <div className='flex justify-between items-center '>
                     <div className='flex justify-center items-center'>

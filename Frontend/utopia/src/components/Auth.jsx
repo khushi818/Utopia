@@ -17,8 +17,7 @@ const Auth = (props) => {
                     </div>
                     <div className='px-5 mt-8'>
                         <p
-                            className='text-white font-light font-serif xl:text-[32px] lg:text-[18px] md:text-[18px] text-left lg:mr-8 md:mr-3'
-                        >
+                            className='text-white font-light font-serif xl:text-[32px] lg:text-[18px] md:text-[18px] text-left lg:mr-8 md:mr-3'>
                             Listen to podcast with live video and chat.Meey and Join Amazing Community.
                         </p>
                     </div>

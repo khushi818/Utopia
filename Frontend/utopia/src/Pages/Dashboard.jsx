@@ -5,10 +5,13 @@ import Activity from '../components/Activity'
 
 const Dashboard = () => {
     return (
-        <div className='flex justify-center items-center'>
-            <Navbar />
-            <Events />
-            <Activity />
+        // <div className='flex justify-center items-center'>
+        <div className='bg-main dark:bg-dark'>
+            <div className='grid grid-flow-col'>
+                <Navbar />
+                <Events />
+                <Activity />
+            </div>
         </div>
     )
 }
