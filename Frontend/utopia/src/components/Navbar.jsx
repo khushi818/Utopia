@@ -1,8 +1,7 @@
 import React from 'react'
-const Navbar = (props) => {
+const Navbar = () => {
     return (
-        // <div className="min-h-screen bg-main">
-        <div className="sidebar min-h-screen w-[3.35rem] md:ml-16 overflow-hidden border-r hover:w-56  hover:shadow-lg ">
+        <div className="sidebar fixed bg-main min-h-screen w-[3.35rem] z-10 overflow-hidden border-r md:hover:w-56  hover:shadow-lg ">
             <div className="flex h-screen flex-col justify-between pt-2 pb-6 text-grey ">
                 <div>
                     <div className="w-max">
@@ -49,7 +48,6 @@ const Navbar = (props) => {
                 </div>
             </div>
         </div>
-
     )
 }
 // inside page dashboard

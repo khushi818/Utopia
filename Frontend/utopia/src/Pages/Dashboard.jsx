@@ -7,7 +7,7 @@ const Dashboard = () => {
     return (
         // <div className='flex justify-center items-center'>
         <div className='bg-main dark:bg-dark'>
-            <div className='grid grid-flow-col'>
+            <div className='grid grid-cols-4 h-screen'>
                 <Navbar />
                 <Events />
                 <Activity />

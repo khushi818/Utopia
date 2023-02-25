@@ -2,7 +2,7 @@ import React from "react"
 
 const Auth = (props) => {
     return (
-        <section className='overscroll-none md:p-6 p-4 '>
+        <section className='overscroll-none md:p-6 p-4'>
             <div className='md:max-w-[90vw] flex items-center md:p-7 justify-between mx-auto my-0 border-dark border-solid border-2 rounded-md md:h-[95vh] h-[100vh]   m-x-0 m-y-auto bg-white'>
                 {/*first section*/}
                 <div className='first-section  justify-around flex-col item-center bg-primary w-[40%] h-[85vh] p-4 rounded-md hidden md:flex'>
