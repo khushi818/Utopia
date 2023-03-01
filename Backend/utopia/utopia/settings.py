@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'authentication.apps.AuthenticationConfig',
+    'accounts.apps.AccountsConfig',
     'base.apps.BaseConfig',
     'rest_framework',
     'rest_framework_simplejwt',
@@ -171,7 +171,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
+AUTH_USER_MODEL = 'accounts.User'
+
+CORS_ALLOWED_ORIGINS = [    
     "http://127.0.0.1:5173",
     "https://utopia-ten.vercel.app"
 ]
