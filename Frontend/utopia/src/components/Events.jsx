@@ -17,7 +17,7 @@ const Events = () => {
     return (
         <section className='container md:col-span-3 col-span-5 overflow-x-hidden md:overflow-y-scroll md:overscroll-auto md:overflow-x-hidden'>
             <div className='flex flex-col border-r pt-40 border-5 min-h-screen'>
-                <div className="border-y border-3 h-3/6 py-8 px-6 w-full ml-[3.35rem]">
+                <div className="border-y border-3 h-3/6 py-8 md:px-6 w-full ml-[3.35rem] px-1">
                     <div className="w-42 h-15 p-6 mr-24  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div className='flex justify-between items-center'>
                             <div className='flex justify-center items-center'>

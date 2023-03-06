@@ -4,15 +4,22 @@ import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
 import Dashboard from './Pages/Dashboard'
 import Notification from "./Pages/Notification"
+import Profile from "./Pages/Profile"
+import Profile_setting from "./Pages/Profile_setting"
+import PrivateRoute from "./utils/PrivateRoute"
 
 function App() {
   return (
     <div className="App bg-main">
       <Routes>
-        <Route element={<Dashboard />} path="/" exact />
+        <Route element={<PrivateRoute />} path="/" exact >
+          <Route path="" element={<Dashboard />} />
+        </Route>
+        <Route element={<Profile />} path="/profile" exact />
+        <Route element={<Profile_setting />} path="/profile_setting" exact />
         <Route element={<Notification />} path="/notification" exact />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} exact />
+        <Route path="/signup" element={<SignUp />} exact />
       </Routes>
     </div>
   )

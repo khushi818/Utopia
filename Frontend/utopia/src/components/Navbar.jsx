@@ -1,5 +1,10 @@
 import React from 'react'
+import AuthContext from '../context/AuthContext'
+import { useContext } from 'react'
+
 const Navbar = () => {
+    const { logoutUser } = useContext(AuthContext)
+
     return (
         <div className="sidebar fixed bg-main min-h-screen w-[3.35rem] z-10 overflow-hidden border-r md:hover:w-56  hover:shadow-lg ">
             <div className="flex h-screen flex-col justify-between pt-2 pb-6 text-grey ">
@@ -45,6 +50,7 @@ const Navbar = () => {
                         </svg>
                         <span className="group-hover:text-gray-700">Settings</span>
                     </a>
+                    <button onClick={logoutUser}>logout</button>
                 </div>
             </div>
         </div>
