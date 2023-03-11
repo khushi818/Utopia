@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
     'base.apps.BaseConfig',
+    'video_call.apps.VideoCallConfig',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
@@ -100,10 +101,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'utopia.urls'
 
+import os 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -165,6 +168,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
