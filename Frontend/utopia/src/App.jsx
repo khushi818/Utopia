@@ -9,12 +9,13 @@ import Profile_setting from "./Pages/Profile_setting"
 import PrivateRoute from "./utils/PrivateRoute"
 
 function App() {
+
   return (
     <div className="App bg-main">
       <Routes>
-        <Route element={<PrivateRoute />} path="/" exact >
-          <Route path="" element={<Dashboard />} />
-        </Route>
+        {/* <Route element={<PrivateRoute />} path="/" exact > */}
+        <Route element={<Dashboard />} path="/" />
+        {/* </Route> */}
         <Route element={<Profile />} path="/profile" exact />
         <Route element={<Profile_setting />} path="/profile_setting" exact />
         <Route element={<Notification />} path="/notification" exact />

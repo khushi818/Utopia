@@ -1,10 +1,8 @@
 import React from 'react'
-import AuthContext from '../context/AuthContext'
-import { useContext } from 'react'
+import { useAuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
-    const { logoutUser } = useContext(AuthContext)
-
+    const { logoutUser } = useAuthContext()
     return (
         <div className="sidebar fixed bg-main min-h-screen w-[3.35rem] z-10 overflow-hidden border-r md:hover:w-56  hover:shadow-lg ">
             <div className="flex h-screen flex-col justify-between pt-2 pb-6 text-grey ">

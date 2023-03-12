@@ -1,25 +1,32 @@
-import { React, useState, useEffect, createContext } from "react";
+import { React, useState, useEffect, createContext, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode"
 
 const AuthContext = createContext()
 
-export default AuthContext
+export const useAuthContext = () => {
+    return useContext(AuthContext)
+}
 
 export const AuthProvider = ({ children }) => {
-    const [authToken, setAuthtoken] = useState(() => {
+    const [authToken, setAuthtoken] = useState(
         localStorage.getItem("authTokens")
             ? JSON.parse(localStorage.getItem("authTokens"))
             : null
-    })
-
-    const [user, setUser] = useState(() =>
-        localStorage.getItem("authTokens")
-            ? jwt_decode(localStorage.getItem("authTokens"))
+    ) // data 
+    const [user, setUser] = useState(""); // this store user s token
+    const [authenticatedUser, setAuthenticatedUser] = useState(
+        localStorage.getItem("userData")
+            ? JSON.parse(localStorage.getItem("userData"))
             : null
-    );
-
+    ) // user info
+    const isAuthenticated = useRef(false)
     // const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        if (authToken) {
+            setUser(`${authToken.token.access}`);
+            console.log(user)
+        }
+    }, [authToken]);
 
     const navigate = useNavigate()
 
@@ -27,7 +34,6 @@ export const AuthProvider = ({ children }) => {
         const response = await fetch("http://localhost:8000/api/user/login/", {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${authToken?.access}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -36,16 +42,38 @@ export const AuthProvider = ({ children }) => {
             })
         });
         const data = await response.json();
+        console.log(data)
+        console.log(data.token.access)
 
         if (response.status === 200) {
             setAuthtoken(data);
-            setUser(jwt_decode(data.access));
+            setUser(`${data.token.access}`);
             localStorage.setItem("authTokens", JSON.stringify(data));
-            navigate("/");
+            accessUser()
+            isAuthenticated.current = true
+            navigate('/')
         } else {
             alert("Something went wrong!");
         }
+        console.log(authToken)
     }
+
+    const accessUser = async () => {
+        const response = await fetch("http://127.0.0.1:8000/api/user/profile/", {
+            method: "GET",
+            headers:
+            {
+                "Authorization": `Bearer ${user}`,
+                "Content-Type": "application/json",
+            }
+        })
+        const data = await response.json()
+
+        console.log(data)
+        setAuthenticatedUser(data)
+        localStorage.setItem("userData", JSON.stringify(data))
+    }
+
 
     const registerUser = async (email, name, password, tc) => {
         const response = await fetch("http://127.0.0.1:8000/api/user/register/", {
@@ -70,7 +98,9 @@ export const AuthProvider = ({ children }) => {
     const logoutUser = () => {
         setAuthtoken(null);
         setUser(null);
-        localStorage.removeItem("authTokens");
+        isAuthenticated.current = false
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("userData")
         navigate("/login");
     };
 
@@ -81,15 +111,11 @@ export const AuthProvider = ({ children }) => {
         setAuthtoken,
         registerUser,
         loginUser,
-        logoutUser
+        logoutUser,
+        authenticatedUser,
+        setAuthenticatedUser,
+        isAuthenticated,
     };
-
-
-    useEffect(() => {
-        if (authToken) {
-            setUser(jwt_decode(authToken.access));
-        }
-    }, [authToken]);
 
     return (
         <AuthContext.Provider value={contextData}>
@@ -97,3 +123,4 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 }
+

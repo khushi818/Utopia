@@ -1,18 +1,20 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import Auth from '../components/Auth';
 import { Link } from 'react-router-dom'
-import AuthContext from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
 
 const Login = () => {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
-    // const [username, setUserName] = useState("")
-    // const { loginUser } = useContext(AuthContext)
+    const [username, setUserName] = useState("")
+    const { loginUser } = useAuthContext()
 
-    // const handleSubmit = (e) => {
-    //     e.preventdefault()
-    //     return email && password && loginUser(email, password)
-    // }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("submit")
+        loginUser(email, password)
+    }
+
     return (
         <>
             <Auth>
@@ -60,7 +62,7 @@ const Login = () => {
                                 placeholder="•••••••••" required />
                         </div>
                         {/* button */}
-                        <button type="submit" className="text-white bg-secondary hover:text-dark  hover:bg-white border hover:border-dark focus:ring-4 focus:ring-secondary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                        <button type="submit" onClick={handleSubmit} className="text-white bg-secondary hover:text-dark  hover:bg-white border hover:border-dark focus:ring-4 focus:ring-secondary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                             Create Account</button>
                     </div>
                 </form>
