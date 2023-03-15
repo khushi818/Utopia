@@ -143,12 +143,15 @@ body {
 /* ----------------- Room Styling | Controls ------------------*/
 
 #controls-wrapper {
+    position: absolute;
+    bottom: 0;
     display: flex;
     width: 100%;
     justify-content: center;
     column-gap: 1em;
     position: fixed;
     bottom: 20px;
+    z-index: 1;
 }
 
 .control-icon {
