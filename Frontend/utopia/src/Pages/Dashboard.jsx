@@ -9,7 +9,7 @@ const Dashboard = () => {
     const { isAuthenticated } = useAuthContext()
     return (
         <>
-            {isAuthenticated ? <div className='flex justify-center items-center'>
+            {isAuthenticated ? <div className='flex justify-between items-center'>
                 <div className='bg-main dark:bg-dark'>
                     <div className='grid grid-cols-4 h-screen'>
                         <Navbar />
@@ -20,7 +20,6 @@ const Dashboard = () => {
             </div> : <Navigate to="/login" />
             }
         </>
-
     )
 }
 

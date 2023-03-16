@@ -5,11 +5,11 @@ import Activity from '../components/Activity'
 
 const Profile_setting = () => {
     return (
-        <div className='bg-main dark:bg-dark'>
-            <div className='grid grid-cols-4 h-screen'>
+        <section section className='bg-main dark:bg-dark' >
+            <div className='h-screen '>
                 <Navbar />
             </div>
-        </div>
+        </section>
     )
 }
 
