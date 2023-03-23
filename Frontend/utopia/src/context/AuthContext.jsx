@@ -43,17 +43,22 @@ export const AuthProvider = ({ children }) => {
         });
         const data = await response.json();
         console.log(data)
-        console.log(data.token.access)
+        if (data) {
+            console.log(data.token.access)
 
-        if (response.status === 200) {
-            setAuthtoken(data);
-            setUser(`${data.token.access}`);
-            localStorage.setItem("authTokens", JSON.stringify(data));
-            accessUser()
-            isAuthenticated.current = true
-            navigate('/')
-        } else {
-            alert("Something went wrong!");
+            if (response.status === 200) {
+                setAuthtoken(data);
+                setUser(`${data.token.access}`);
+                localStorage.setItem("authTokens", JSON.stringify(data));
+                accessUser()
+                isAuthenticated.current = true
+                navigate('/')
+            } else {
+                alert("Something went wrong!");
+            }
+        }
+        else {
+            console.log("data not found")
         }
         console.log(authToken)
     }

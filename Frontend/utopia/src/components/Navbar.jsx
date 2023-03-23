@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuthContext } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     const { logoutUser } = useAuthContext()
@@ -13,12 +14,11 @@ const Navbar = () => {
                     </div>
 
                     <ul className="mt-16 space-y-2 tracking-wide">
-
                         <li className="min-w-max">
-                            <a href="#" className="bg group flex items-center space-x-4 rounded-full px-4 py-3 text-gray-600">
+                            <Link to="/" className="bg group flex items-center space-x-4 rounded-full px-4 py-3 text-gray-600">
                                 <img src="/dashboard.svg" className="inline p-1 text-grey" alt="dash-icon" />
                                 <span className="group-hover:text-gray-700">Dashboard</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="min-w-max">
                             <a href="#" className="bg group flex items-center space-x-4 rounded-full px-4 py-3 text-gray-600">
@@ -27,16 +27,16 @@ const Navbar = () => {
                             </a>
                         </li>
                         <li className="min-w-max">
-                            <a href="#" className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
+                            <Link to="/" className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
                                 <img src="/favourite.svg" className="inline p-1 text-grey" alt="icon" />
                                 <span className="group-hover:text-gray-700">Bookmarks</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="min-w-max">
-                            <a href="#" className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
+                            <Link to="/profile" className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
                                 <img src="/Profile.svg" className="inline p-1 text-grey" alt="icon" />
                                 <span className="group-hover:text-gray-700">Profile</span>
-                            </a>
+                            </Link>
                         </li>
 
                     </ul>

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 
-import Login from './Pages/Login'
-import SignUp from './Pages/SignUp'
+// import Login from './Pages/Login'
+// import SignUp from './Pages/SignUp'
 import Dashboard from './Pages/Dashboard'
 import Notification from "./Pages/Notification"
 import Profile from "./Pages/Profile"
@@ -16,11 +16,11 @@ function App() {
         {/* <Route element={<PrivateRoute />} path="/" exact > */}
         <Route element={<Dashboard />} path="/" />
         {/* </Route> */}
-        <Route element={<Profile />} path="/profile" exact />
+        <Route element={<Profile />} path="/profile/" exact />
         <Route element={<Profile_setting />} path="/profile_setting" exact />
         <Route element={<Notification />} path="/notification" exact />
-        <Route path="/login" element={<Login />} exact />
-        <Route path="/signup" element={<SignUp />} exact />
+        {/* <Route path="/login" element={<Login />} exact /> */}
+        {/* <Route path="/signup" element={<SignUp />} exact /> */}
       </Routes>
     </div>
   )

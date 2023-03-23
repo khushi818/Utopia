@@ -1,12 +1,27 @@
-import React from 'react'
+import { React, useState } from 'react'
 import Navbar from '../components/Navbar'
+import ProfileDetails from '../components/ProfileDetails'
 
 const Profile = () => {
+    const [hidden, setHidden] = useState('hidden')
+    // const [disable,setDisable] = useState(true)
+    // const [createRoomHidden, setCreateRoomHidden] = useState('hidden')
+
+    const handleEdit = (e) => {
+        setHidden('hidden' ? 'block' : 'hidden')
+    }
+
     return (
         <section className='bg-main dark:bg-dark'>
             <div className='h-screen '>
                 <Navbar />
                 <div className="flex flex-col justify-center max-w-full ">
+                    <button
+                        onClick={handleEdit}
+                        className='w-24 absolute mt-2 right-10 top-0 z-10 bg-main text-dark rounded-md py-2 px-4'>
+                        Edit
+                    </button>
+                    <button className='w-36 absolute mt-2 right-40 top-0 z-10 bg-main text-dark rounded-md py-2 px-4'>+Create Room</button>
                     <div className=' bg-primary w-full h-36 relative'>
                         <img src="/myAvatar.png" className='absolute left-20 top-20 w-28 rounded-full border border-dark' />
                         <div className='ml-48 mt-36 flex items-start flex-col'>
@@ -49,6 +64,8 @@ const Profile = () => {
                 </div>
             </div>
 
+            {/* model */}
+            <ProfileDetails hidden={hidden} />
 
 
         </section >

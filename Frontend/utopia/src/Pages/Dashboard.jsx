@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Events from '../components/Events'
 import Activity from '../components/Activity'
@@ -7,6 +7,7 @@ import { Navigate } from 'react-router-dom'
 
 const Dashboard = () => {
     const { isAuthenticated } = useAuthContext()
+
     return (
         <>
             {isAuthenticated ? <div className='flex justify-between items-center'>

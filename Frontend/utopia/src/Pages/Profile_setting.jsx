@@ -9,6 +9,10 @@ const Profile_setting = () => {
             <div className='h-screen '>
                 <Navbar />
             </div>
+
+            <form>
+
+            </form>
         </section>
     )
 }
