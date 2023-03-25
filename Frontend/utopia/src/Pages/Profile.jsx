@@ -1,14 +1,21 @@
-import { React, useState } from 'react'
+import { React, useRef, useState } from 'react'
 import Navbar from '../components/Navbar'
 import ProfileDetails from '../components/ProfileDetails'
+import CreateRoom from '../components/CreateRoom'
 
 const Profile = () => {
     const [hidden, setHidden] = useState('hidden')
+    const [createroomhidden, setCreateRoomHidden] = useState('hidden')
     // const [disable,setDisable] = useState(true)
     // const [createRoomHidden, setCreateRoomHidden] = useState('hidden')
 
     const handleEdit = (e) => {
         setHidden('hidden' ? 'block' : 'hidden')
+
+    }
+
+    const handleCreateButton = (e) => {
+        setCreateRoomHidden('hidden' ? 'block' : 'hidden')
     }
 
     return (
@@ -21,7 +28,9 @@ const Profile = () => {
                         className='w-24 absolute mt-2 right-10 top-0 z-10 bg-main text-dark rounded-md py-2 px-4'>
                         Edit
                     </button>
-                    <button className='w-36 absolute mt-2 right-40 top-0 z-10 bg-main text-dark rounded-md py-2 px-4'>+Create Room</button>
+                    <button className='w-36 absolute mt-2 right-40 top-0 z-10 bg-main text-dark rounded-md py-2 px-4'
+                        onClick={handleCreateButton}
+                    >+Create Room</button>
                     <div className=' bg-primary w-full h-36 relative'>
                         <img src="/myAvatar.png" className='absolute left-20 top-20 w-28 rounded-full border border-dark' />
                         <div className='ml-48 mt-36 flex items-start flex-col'>
@@ -65,8 +74,8 @@ const Profile = () => {
             </div>
 
             {/* model */}
-            <ProfileDetails hidden={hidden} />
-
+            {/* <ProfileDetails hidden={{hidden, setHidden}} />
+            <CreateRoom hidden={createroomhidden} /> */}
 
         </section >
     )
