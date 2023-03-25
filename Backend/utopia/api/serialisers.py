@@ -10,3 +10,5 @@ class createRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('name',)         
+
+        
