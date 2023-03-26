@@ -15,12 +15,12 @@ function App() {
     <div className="App bg-main">
       <Routes>
         {/* <Route element={<PrivateRoute />} path="/" exact > */}
-        <Route element={<Dashboard />} path="/utopia-meet" />
+        <Route element={<Dashboard />} path="/utopia_meet" />
         {/* </Route> */}
         <Route element={<Profile />} path="/profile" exact />
         <Route element={<Profile_setting />} path="/profile_setting" exact />
         <Route element={<Notification />} path="/notification" exact />
-        <Route element={<Utopia_meet />} path="utopia_meet/:code" exact />
+        <Route element={<Utopia_meet />} path="/utopia_meet/:code" exact />
         {/* <Route path="/login" element={<Login />} exact /> */}
         {/* <Route path="/signup" element={<SignUp />} exact /> */}
       </Routes>

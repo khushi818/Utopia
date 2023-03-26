@@ -2,11 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.video-container {
+  @apply relative border max-w-full min-w-fit max-h-full min-h-fit border-primary p-[15%] rounded-full bg-white m-1
+}
+
+.video-player {
+  @apply absolute top-0 bottom-0 left-0 right-0 w-full h-full
+}
+
+.video-player>* {
+  @apply rounded-full
+}
+
+.username-wrapper {
+  @apply absolute left-[35%] bottom-3 z-50 w-fit p-2 rounded-sm text-dark text-sm bg-main
 }
 
 
