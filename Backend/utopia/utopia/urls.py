@@ -19,4 +19,7 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('' , include('api.urls')),
+    path('api/user/',include('authUser.urls')),
+    path('',include('conference.urls')),
+    path('',include('chatroom.urls'))
 ]
