@@ -12,13 +12,15 @@ export const AuthProvider = ({ children }) => {
         localStorage.getItem("authTokens")
             ? JSON.parse(localStorage.getItem("authTokens"))
             : null
-    ) // data 
+    ) // data
+
     const [user, setUser] = useState(""); // this store user s token
     const [authenticatedUser, setAuthenticatedUser] = useState(
         localStorage.getItem("userData")
             ? JSON.parse(localStorage.getItem("userData"))
             : null
     ) // user info
+
     const isAuthenticated = useRef(false)
     // const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -30,14 +32,14 @@ export const AuthProvider = ({ children }) => {
 
     const navigate = useNavigate()
 
-    const loginUser = async (email, password) => {
+    const loginUser = async (username, password) => {
         const response = await fetch("http://localhost:8000/api/user/login/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email,
+                username,
                 password
             })
         });
@@ -51,8 +53,13 @@ export const AuthProvider = ({ children }) => {
                 setUser(`${data.token.access}`);
                 localStorage.setItem("authTokens", JSON.stringify(data));
                 accessUser()
-                isAuthenticated.current = true
-                navigate('/')
+                if (user) {
+                    isAuthenticated.current = true
+                    navigate('/')
+                }
+                else {
+                    navigate('/login')
+                }
             } else {
                 alert("Something went wrong!");
             }
@@ -64,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const accessUser = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/user/profile/", {
+        const response = await fetch("http://127.0.0.1:8000/api/user/personal", {
             method: "GET",
             headers:
             {
@@ -80,17 +87,15 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-    const registerUser = async (email, name, password, tc) => {
+    const registerUser = async (username, password) => {
         const response = await fetch("http://127.0.0.1:8000/api/user/register/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email,
-                name,
-                password,
-                tc
+                username,
+                password
             })
         });
         if (response.status === 201) {

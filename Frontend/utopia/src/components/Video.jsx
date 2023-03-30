@@ -1,76 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { createClient, createMicrophoneAndCameraTracks } from "agora-rtc-react";
+import { useUsers } from '../context/MeetContext';
 import { useRef } from 'react';
 import Participant from './Participant';
-import AgoraRTC from "agora-rtc-sdk-ng";
 
-const config = { mode: "rtc", codec: "vp8" }
-const useClient = createClient(config);
-const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
-let localTracks = []
-let remoteUsers = []
 const Video = ({ participants }) => {
-    const [token, setToken] = useState("")
-    const [uid, setUid] = useState("")
-    const renderRef = useRef(false)
-    const element = useRef(null)
+    const users = useUsers()[0]
 
     useEffect(() => {
-        if (renderRef.current) return;
-        renderRef.current = true;
-        fetch("http://127.0.0.1:8000/agora/?channel=home",
-            {
-                method: "GET",
-                headers: { "content-Type": "application/JSON" },
-            }
-        ).then((res) => res.json())
-            .then((data) => {
-                setToken(data.token)
-                setUid(data.uid)
-                console.log(data.token)
-            })
-        handleUserJoin()
-    }, [])
-
-
-    const client = useClient();
-    // const { ready, tracks } = useMicrophoneAndCameraTracks();
-
-    const joinAndDisplayLocalStream = async () => {
-        const app_Id = "50aa357a11604d798b12088f413a4efa"
-
-        // client.on('user-published', handleUserJoined)
-        // client.on('user-left', handleUserLeft)
-
-        try {
-            setUid(client.join(app_Id, "home", token, uid))
-        } catch (error) {
-            console.error(error)
-            window.open('/utopia-meet', '_self')
-        }
-
-        localTracks = await AgoraRTC.createCameraVideoTrack()
-        console.log(localTracks)
-        localTracks.play(`user-${uid}`)
-        // await client.publish(localTracks)
-    }
-
-    const handleUserJoin = () => {
-        joinAndDisplayLocalStream()
-    }
+        console.log(users)
+    }, [users])
 
     return (
         <section className='min-w-full min-h-screen'>
             <div id="stream__container" className='relative flex flex-wrap items-center justify-center overflow-hidden'>
-                {/* {participants.map((participant) => {
-                    <participant participant={participant} uid={uid} />
-                })} */}
-                <Participant uid={uid} ref={element} />
-                {/* <div class="video-container" id={`user-container-${uid}`} >
-                    <div class="video-player" id={`user-${uid}`} ref={element}></div>
-                    <div class="username-wrapper"><span class="user-name">Name</span></div>
-                </div> */}
-                {/* <Participant uid={uid} /> */}
+                {users.length && users.map((user) => {
+                    <Participant key={user.uid} user={user} />
+                })}
             </div>
             <div id="buttons" className='grid fixed bottom-2 grid-cols-4 gap-6 left-[45%]'>
                 <button>
