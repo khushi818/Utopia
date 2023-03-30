@@ -6,29 +6,9 @@ const Room = ({ room }) => {
     const { code } = useParams()
     const navigate = useNavigate()
 
-
     /* To join room */
     const handleJoin = (e) => {
-        e.preventDefault();
-        // if (dataFetchedRef.current) return;
-        // dataFetchedRef.current = true;
-        const requestOptions = {
-            method: "POST",
-            headers: { "content-Type": "application/JSON" },
-            body: JSON.stringify({
-                "code": room.code
-            })
-        };
-
-        fetch("http://127.0.0.1:8000/join-room/", requestOptions)
-            .then(res => {
-                if (res.ok) {
-                    navigate(`/utopia_meet/${room.code}`)
-                    console.log(res)
-                }
-
-            })
-            .catch(error => console.log(error))
+        navigate(`/utopia_meet/${room.code}`)
     }
     return (
         <div>

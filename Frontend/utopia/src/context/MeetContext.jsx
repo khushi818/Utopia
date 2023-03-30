@@ -24,22 +24,22 @@ export const useClient = () => {
 export const MeetProvider = ({ children }) => {
     const [users, setUsers] = useState([])
     const [start, setStart] = useState(false)
-    // const rtc = useRef({
-    //     // For the local client.
-    //     client: null,
-    //     // For the local audio and video tracks.
-    //     localAudioTrack: null,
-    //     localVideoTrack: null,
-    // });
+    const rtc = useRef({
+        // For the local client.
+        client: null,
+        // For the local audio and video tracks.
+        localAudioTrack: null,
+        localVideoTrack: null,
+    });
 
 
     return (
-        // <ClientContext.Provider value={rtc}>
-        <UserContext.Provider value={[users, setUsers]}>
-            <StartContext.Provider value={[start, setStart]}>
-                {children}
-            </StartContext.Provider>
-        </UserContext.Provider>
+        <ClientContext.Provider value={rtc}>
+            <UserContext.Provider value={[users, setUsers]}>
+                <StartContext.Provider value={[start, setStart]}>
+                    {children}
+                </StartContext.Provider>
+            </UserContext.Provider>
         // </ClientContext.Provider>
     );
 }
