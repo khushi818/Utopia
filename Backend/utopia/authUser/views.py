@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status, generics, mixins
 from rest_framework.views import APIView
-from .serializers import LoginSerializer, UserProfileSerializer, RegisterSerializer, UserSeriliazer
+from .serializers import RefreshSerializer, LoginSerializer, UserProfileSerializer, RegisterSerializer, UserSeriliazer
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -17,13 +17,16 @@ from rest_framework.parsers import JSONParser
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
 
-    return {
+    return ({
         'refresh': str(refresh),
         'access': str(refresh.access_token),
-    }
+    })
 
+# class UserRefreshView(APIView):
+#     def post(self,request):
+#         user = User.objects.filter(request.data)
+#         if(user):
 
-# Create your views here.
 
 class UserRegisterView(APIView):
     def post(self, request, format=None):
