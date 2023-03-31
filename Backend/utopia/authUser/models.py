@@ -2,27 +2,28 @@ from django.db import models
 from django.utils import timezone
 # Create your models here.
 from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser,PermissionsMixin
+    BaseUserManager, AbstractBaseUser, PermissionsMixin
 )
 
+
 class MyUserManager(BaseUserManager):
-    def create_user(self,username ,password=None , **extra_fields):
+    def create_user(self, username, password=None, **extra_fields):
         """
         Creates and saves a User with the given email, name and password.
         """
         if not username:
             raise ValueError('Users must have an username')
 
-        user = self.model(username = username, **extra_fields)
+        user = self.model(username=username, **extra_fields)
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,username ,password=None , **extra_fields):
-    #     """
-    #     Creates and saves a superuser with the given username,email, and password
-    #     """
+    def create_superuser(self, username, password=None, **extra_fields):
+        #     """
+        #     Creates and saves a superuser with the given username,email, and password
+        #     """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -37,7 +38,8 @@ class MyUserManager(BaseUserManager):
 
 # custom user model
 
-class User(AbstractBaseUser,PermissionsMixin):
+
+class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=100)
     email = models.EmailField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,7 +48,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_online = models.DateTimeField(default=timezone.now)
-     
+
     objects = MyUserManager()
 
     USERNAME_FIELD = 'username'
@@ -57,14 +59,16 @@ class User(AbstractBaseUser,PermissionsMixin):
     class Meta:
         ordering = ("created_at",)
 
+
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name= "user_profile",on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100,null = True)
-    last_name = models.CharField(max_length=100 , null = True)
-    caption = models.CharField(max_length=250, null = True)
-    about = models.TextField(blank = True,default ="")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    caption = models.CharField(max_length=250, blank=True)
+    about = models.TextField(blank=True)
     # profile_picture = models.ForeignKey(
-        # GenericFileUpload, related_name="user_image", on_delete=models.SET_NULL, null=True)
+    # GenericFileUpload, related_name="user_image", on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -72,4 +76,4 @@ class UserProfile(models.Model):
         return self.user.username
 
     class Meta:
-        ordering = ("created_at",)    
+        ordering = ("created_at",)

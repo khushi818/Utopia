@@ -1,10 +1,11 @@
 from rest_framework import serializers
-from .models import User,UserProfile
+from .models import User, UserProfile
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
-    
+
     class Meta:
         fields = '__all__'
 
@@ -13,7 +14,7 @@ class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField()
     username = serializers.CharField()
     password = serializers.CharField()
-    
+
     class Meta:
         fields = '__all__'
 
@@ -36,8 +37,8 @@ class UserSeriliazer(serializers.ModelSerializer):
         field = '__all__'
         exclude = ('password',)
 
-class UserProfileSerializer(serializers.ModelSerializer):     
+
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = '__all__' 
-        
+        fields = '__all__'
