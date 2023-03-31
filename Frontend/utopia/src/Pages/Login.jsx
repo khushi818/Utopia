@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import Auth from '../components/Auth';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext';
 
 const Login = () => {
     const [password, setPassword] = useState("")
-    // const [email, setEmail] = useState("")
     const [username, setUserName] = useState("")
-    const { loginUser } = useAuthContext()
+    const { loginUser, isAuthenticated } = useAuthContext()
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
-        e.preventDefault();
         console.log("submit")
         loginUser(username, password)
+        if (isAuthenticated) {
+            navigate('/')
+        }
+        e.preventDefault()
     }
 
     return (
@@ -38,18 +41,7 @@ const Login = () => {
                                 placeholder="mary_go_around"
                                 required />
                         </div>
-                        {/* email */}
-                        {/* <div className="mb-6">
-                            <label for="email" className="block mb-2 text-sm font-medium text-gray-900">Email address</label>
-                            <input type="email" id="email"
-                                className="border text-sm rounded-lg  block w-full p-2.5"
-                                onChange={(e) => {
-                                    setEmail(e.target.value)
-                                }}
-                                value={email}
-                                placeholder="mary.albert@company.com"
-                                required />
-                        </div> */}
+
                         {/* password */}
                         <div className="mb-6">
                             <label for="password" className="block mb-2 text-sm font-medium text-gray-900 ">Password</label>

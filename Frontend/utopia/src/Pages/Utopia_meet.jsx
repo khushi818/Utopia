@@ -14,15 +14,8 @@ const Utopia_meet = () => {
     const navigate = useNavigate();
     const [token, setToken] = useState(null)
     const [uid, setUid] = useState("")
-    const renderRef = useRef(false)
+    const [hidden, setHidden] = useState(false)
     let rtc = useClient()
-    // const rtc = useRef({
-    //     // For the local client.
-    //     client: null,
-    //     // For the local audio and video tracks.
-    //     localAudioTrack: null,
-    //     localVideoTrack: null,
-    // });
     let [users, setUsers] = useUsers()
     let [start, setStart] = useStart()
 
@@ -39,7 +32,7 @@ const Utopia_meet = () => {
                 setUid(data.uid)
                 console.log(data.token)
             })
-        init()
+        // init()
     }, [room])
 
     /* host */
@@ -62,6 +55,10 @@ const Utopia_meet = () => {
         setStart(true)
     }
 
+    const JoinHandle = () => {
+        init()
+        setHidden(true)
+    }
     /* remote client*/
     const initClientEvents = () => {
         rtc.current.client.on("user-published", async (user, mediaType) => {
@@ -165,6 +162,7 @@ const Utopia_meet = () => {
                 </div>
                 <div className='col-span-2 min-h-screen m-10'>
                     {/* video_conference */}
+                    <button onClick={JoinHandle} className={`${hidden ? 'hidden' : ''} p-4 bg-primary text-white w-18`}>JoinStream</button>
                     <Video participants={participants} />
 
                 </div>

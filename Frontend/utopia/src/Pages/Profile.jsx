@@ -1,21 +1,15 @@
-import { React, useRef, useState } from 'react'
+import { React, useState } from 'react'
 import Navbar from '../components/Navbar'
 import ProfileDetails from '../components/ProfileDetails'
 import CreateRoom from '../components/CreateRoom'
 
 const Profile = () => {
-    const [hidden, setHidden] = useState('hidden')
     const [createroomhidden, setCreateRoomHidden] = useState('hidden')
-    // const [disable,setDisable] = useState(true)
-    // const [createRoomHidden, setCreateRoomHidden] = useState('hidden')
+    const [disable, setDisable] = useState(false)
 
-    const handleEdit = (e) => {
-        setHidden('hidden' ? 'block' : 'hidden')
-
-    }
-
-    const handleCreateButton = (e) => {
+    const handleCreateEdit = (e) => {
         setCreateRoomHidden('hidden' ? 'block' : 'hidden')
+        setDisable(true)
     }
 
     return (
@@ -24,13 +18,13 @@ const Profile = () => {
                 <Navbar />
                 <div className="flex flex-col justify-center max-w-full ">
                     <button
-                        onClick={handleEdit}
-                        className='w-24 absolute mt-2 right-10 top-0 z-10 bg-main text-dark rounded-md py-2 px-4'>
+                        // onClick={handleProfileEdit}
+                        className={` ${disable ? 'disabled' : ''} w-24 absolute mt-2 right-10 top-0 z-10 bg-main text-dark rounded-md py-2 px-41`}>
                         Edit
                     </button>
-                    <button className='w-36 absolute mt-2 right-40 top-0 z-10 bg-main text-dark rounded-md py-2 px-4'
-                        onClick={handleCreateButton}
-                    >+Create Room</button>
+                    <button className={`${disable ? 'disabled' : ''} w-36 absolute mt-2 right-40 top-0 z-10 bg-main text-dark rounded-md py-2 px-4`}
+                        onClick={handleCreateEdit}
+                    >+ Create Room</button>
                     <div className=' bg-primary w-full h-36 relative'>
                         <img src="/myAvatar.png" className='absolute left-20 top-20 w-28 rounded-full border border-dark' />
                         <div className='ml-48 mt-36 flex items-start flex-col'>
@@ -45,11 +39,7 @@ const Profile = () => {
                         </div>
                     </div>
                     {/* slide */}
-                    <div className='flex justify-around items-start mt-56 '>
-                        <h4>YOUR ROOMS</h4>
-                        <h4>BOOKMARKED</h4>
-                    </div>
-                    <div className='flex flex-col border-r pt-20 border-5 min-h-screen'>
+                    <div className='flex flex-col border-r pt-20 mt-36 border-5 min-h-screen'>
                         <div className="border-y border-3 h-3/6 py-8 md:px-6 w-full ml-[3.35rem] px-1">
                             <div className="w-42 h-15 p-6 mr-24  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                 <div className='flex justify-between items-center'>
@@ -74,8 +64,7 @@ const Profile = () => {
             </div>
 
             {/* model */}
-            {/* <ProfileDetails hidden={{hidden, setHidden}} />
-            <CreateRoom hidden={createroomhidden} /> */}
+            <CreateRoom hidden={createroomhidden} disable={setDisable} />
 
         </section >
     )

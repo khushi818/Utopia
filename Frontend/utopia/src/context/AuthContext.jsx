@@ -8,32 +8,28 @@ export const useAuthContext = () => {
 }
 
 export const AuthProvider = ({ children }) => {
-    const [authToken, setAuthtoken] = useState(
-        localStorage.getItem("authTokens")
-            ? JSON.parse(localStorage.getItem("authTokens"))
-            : null
-    ) // data
-
-    const [user, setUser] = useState(""); // this store user s token
-    const [authenticatedUser, setAuthenticatedUser] = useState(
-        localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : null
-    ) // user info
-
-    const isAuthenticated = useRef(false)
-    // const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        if (authToken) {
-            setUser(`${authToken.token.access}`);
-            console.log(user)
-        }
-    }, [authToken]);
-
+    //store access token
+    const [authToken, setAuthtoken] = useState("")
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [userData, setUserData] = useState([])
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (userData) {
+            localStorage.setItem("userdata", JSON.stringify(userData))
+        }
+    }, [userData])
+
+    useEffect(() => {
+        if (authToken) {
+            localStorage.setItem("token", JSON.stringify(authToken))
+            setIsAuthenticated(true)
+        }
+    }, [authToken])
+
+
     const loginUser = async (username, password) => {
-        const response = await fetch("http://localhost:8000/api/user/login/", {
+        await fetch("http://localhost:8000/api/user/login/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -42,89 +38,66 @@ export const AuthProvider = ({ children }) => {
                 username,
                 password
             })
-        });
-        const data = await response.json();
-        console.log(data)
-        if (data) {
-            console.log(data.token.access)
+        }).then(res => res.json())
+            .then((data) => {
+                setAuthtoken(data.token['access'])
 
-            if (response.status === 200) {
-                setAuthtoken(data);
-                setUser(`${data.token.access}`);
-                localStorage.setItem("authTokens", JSON.stringify(data));
-                accessUser()
-                if (user) {
-                    isAuthenticated.current = true
-                    navigate('/')
-                }
-                else {
-                    navigate('/login')
-                }
-            } else {
-                alert("Something went wrong!");
-            }
-        }
-        else {
-            console.log("data not found")
-        }
-        console.log(authToken)
+                console.log(data.msg + " " + JSON.parse(JSON.stringify(data.token)))
+            }).catch((errors) => console.log(errors))
     }
 
-    const accessUser = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/user/personal", {
+    const UserDetails = async () => {
+        await fetch("http://127.0.0.1:8000/api/user/personal", {
             method: "GET",
             headers:
             {
-                "Authorization": `Bearer ${user}`,
+                "Authorization": `Bearer ${authToken}`,
                 "Content-Type": "application/json",
             }
-        })
-        const data = await response.json()
-
-        console.log(data)
-        setAuthenticatedUser(data)
-        localStorage.setItem("userData", JSON.stringify(data))
+        }).then(res => res.json())
+            .then((data) => setUserData(data))
+            .catch((errors) => console.log(errors))
     }
 
 
     const registerUser = async (username, password) => {
-        const response = await fetch("http://127.0.0.1:8000/api/user/register/", {
+        await fetch("http://127.0.0.1:8000/api/user/register/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 username,
+                email,
                 password
             })
-        });
-        if (response.status === 201) {
-            navigate("/login");
-        } else {
-            alert("Something went wrong!");
-        }
+        }).then((res) => res.json())
+            .then((data) => {
+                console.log(data.msg)
+                navigate('/login')
+            }).catch((errors) => console.log(errors))
     };
 
     const logoutUser = () => {
-        setAuthtoken(null);
-        setUser(null);
-        isAuthenticated.current = false
-        localStorage.removeItem("authToken");
+        setIsAuthenticated(false)
+        setAuthtoken("")
+        setUserData("")
+        localStorage.removeItem("token");
         localStorage.removeItem("userData")
         navigate("/login");
     };
 
     const contextData = {
-        user,
-        setUser,
         authToken,
         setAuthtoken,
+        setUserData,
+        userData,
         registerUser,
         loginUser,
         logoutUser,
-        authenticatedUser,
-        setAuthenticatedUser,
         isAuthenticated,
+        UserDetails,
+        setIsAuthenticated
     };
 
     return (
