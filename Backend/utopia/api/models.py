@@ -16,11 +16,12 @@ def generate_unique_code():
 
 
 class Room(models.Model):
-    # user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE)
     code = models.CharField(
         max_length=8, default=generate_unique_code, unique=True)
-    host = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
+    host = models.CharField(max_length=50, default=None)
+    name = models.CharField(max_length=50, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
