@@ -9,6 +9,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
 
 class createRoomSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Room
         fields = ('name',)
