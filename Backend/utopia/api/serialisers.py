@@ -8,8 +8,13 @@ class RoomSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class createRoomSerializer(serializers.ModelSerializer):
+class MyRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ('user', 'name', 'created_at')
 
+
+class createRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('name',)

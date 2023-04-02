@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serialisers import RoomSerializer, createRoomSerializer
+from rest_framework.renderers import JSONRenderer
+from .serialisers import RoomSerializer, createRoomSerializer, MyRoomSerializer
 from .models import Room
 from rest_framework.permissions import IsAuthenticated
 
@@ -28,6 +29,20 @@ class GetRoom(APIView):
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'Room not found': 'Invalid Room code'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserRooms(APIView):
+    lookup_url_kwargs = 'username'
+    permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]
+
+    def get(self, request, format=None):
+        user = self.request.user
+        rooms = Room.objects.filter(user=user)
+        # username = self.request.user.username
+        # request.data['username'] = self.request.user.username
+        serialiser = MyRoomSerializer(rooms, many=True)
+        return Response(serialiser.data)
 
 
 class JoinRoom(APIView):
