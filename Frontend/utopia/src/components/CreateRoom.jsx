@@ -1,6 +1,8 @@
 import { React, useState } from 'react'
 import { useAuthContext } from '../context/AuthContext'
-const CreateRoom = ({ hidden }) => {
+
+
+const CreateRoom = ({ hidden, setHidden }) => {
   const [name, setName] = useState("")
   const { authToken } = useAuthContext()
   // const [ishidden, setIsHidden] = useState(hidden)
@@ -24,8 +26,10 @@ const CreateRoom = ({ hidden }) => {
       .catch((errors) => console.log(errors))
     console.log(name)
   }
+
   const handleClose = (e) => {
-    //   setIsHidden(false)
+    e.preventDefault()
+    setHidden('hidden')
   }
 
   return (

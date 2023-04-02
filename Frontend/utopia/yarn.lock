@@ -584,6 +584,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-serve-static-core@npm:4.17.28":
+  version: 4.17.28
+  resolution: "@types/express-serve-static-core@npm:4.17.28"
+  dependencies:
+    "@types/node": "npm:*"
+    "@types/qs": "npm:*"
+    "@types/range-parser": "npm:*"
+  checksum: 643cae979477eccc5dcea481a0c4c891de01d58e01b4f33462e00a26b21b754ca6a31c54c88214ad0a8faf4df089a7af492b48807114438d0a668fd87345b1b9
+  languageName: node
+  linkType: hard
+
 "@types/hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
@@ -594,10 +605,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:*":
+  version: 18.15.11
+  resolution: "@types/node@npm:18.15.11"
+  checksum: 2ad6c7aeb0841a821d5f0556ccbc9c0cec597cb31b5fe58b085740983f6b01a21a3c62c37ca642dd92b5de8935d6084896634af19f1f022e8d173049ad258a60
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^14.14.31":
+  version: 14.18.42
+  resolution: "@types/node@npm:14.18.42"
+  checksum: e446ccdda5e101f5e9e32dc5b3a8eb84f20092265f1934a03397fc80d92d8941ede39fea5fae02949bbbad28c9ea6082e12cfce5f8abae3274ba29ae1b825d79
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: a6e04a01e1f632cc3fa5fffd79779f2f83a8fec1293cdf29b5a02aa4e1a1b38a124e824205a40de4e66532a0fa33c4f60337b55cec635080ea2571e55910460f
+  languageName: node
+  linkType: hard
+
+"@types/qs@npm:*":
+  version: 6.9.7
+  resolution: "@types/qs@npm:6.9.7"
+  checksum: 6ad8b468d122ef64878bef150efb428532cc8768ec66fac61b9abb1ff0f30520d86138290e753d5f179e6fd01ba3a51c56e2e0a7a6e40b5d1cfd8b701f70367d
+  languageName: node
+  linkType: hard
+
+"@types/range-parser@npm:*":
+  version: 1.2.4
+  resolution: "@types/range-parser@npm:1.2.4"
+  checksum: 0ceeddc63c66d2e632c93ed6fdea6e7fcc20a3a2a6fc84043a9700259fe4d50002b21c9cf99c58b3960bb2bd541b8f8bec255ae35025f99e8ca92be7d341e60e
   languageName: node
   linkType: hard
 
@@ -2135,6 +2174,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pusher-js@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "pusher-js@npm:8.0.2"
+  dependencies:
+    "@types/express-serve-static-core": "npm:4.17.28"
+    "@types/node": "npm:^14.14.31"
+    tweetnacl: "npm:^1.0.3"
+  checksum: e2029706b727bbf55a3f00a8aa0364924820a970809319c6ff0f6e41e9349ba428aae922df835977247280bbd1b51fea3ee42ad1d07183c4105d82323846ccbb
+  languageName: node
+  linkType: hard
+
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -2605,6 +2655,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tweetnacl@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tweetnacl@npm:1.0.3"
+  checksum: e6d5730951ebcb2bf67874dd9f70de3e049a3c58d0b0bc5cc70e888fbd253f77e5bab00aea42fb71b605c42807542edda807f00ecdc29324f2154049fc5a341a
+  languageName: node
+  linkType: hard
+
 "unique-filename@npm:^2.0.0":
   version: 2.0.1
   resolution: "unique-filename@npm:2.0.1"
@@ -2666,6 +2723,7 @@ __metadata:
     axios: "npm:^1.3.4"
     jwt-decode: "npm:^3.1.2"
     postcss: "npm:^8.4.21"
+    pusher-js: "npm:^8.0.2"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-redux: "npm:^8.0.5"

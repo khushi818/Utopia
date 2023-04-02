@@ -4,11 +4,11 @@ import ProfileDetails from '../components/ProfileDetails'
 import CreateRoom from '../components/CreateRoom'
 
 const Profile = () => {
-    const [createroomhidden, setCreateRoomHidden] = useState('hidden')
+    const [hidden, setHidden] = useState('hidden')
     const [disable, setDisable] = useState(false)
 
     const handleCreateEdit = (e) => {
-        setCreateRoomHidden('hidden' ? 'block' : 'hidden')
+        setHidden('block')
         setDisable(true)
     }
 
@@ -64,7 +64,7 @@ const Profile = () => {
             </div>
 
             {/* model */}
-            <CreateRoom hidden={createroomhidden} disable={setDisable} />
+            <CreateRoom hidden={hidden} setHidden={setHidden} disable={setDisable} />
 
         </section >
     )

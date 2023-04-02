@@ -3,6 +3,7 @@ import AgoraRTC from "agora-rtc-sdk-ng";
 import { createClient, createCameraVideoTrack, createCustomAudioTrack } from "agora-rtc-react";
 import { useNavigate, useParams } from 'react-router-dom'
 import Video from '../components/Video'
+import ChatRoom from '../components/ChatRoom';
 import { useClient, useUsers, useStart } from '../context/MeetContext'
 
 const Utopia_meet = () => {
@@ -153,23 +154,18 @@ const Utopia_meet = () => {
     return (
         <>
             <header>
-                <div className='bg-dark w-full text-center text-white'>{room.name}</div>
+                <div className='w-full text-center text-dark'>{room.name}</div>
             </header>
             <section className='grid grid-cols-4 text-center'>
-                <div className='overflow-hidden w-48 bg-white min-h-screen'>
+                <div className='overflow-hidden w-48 bg-main min-h-screen'>
                     <button onClick={handleLeave} className="w-24 bg-red p-2 mt-2 rounded-sm">Leave</button>
                     <h1>participants</h1>
                 </div>
-                <div className='col-span-2 min-h-screen m-10'>
+                <div className='col-span-2 min-h-screen mt-10 w-full'>
                     {/* video_conference */}
                     <button onClick={JoinHandle} className={`${hidden ? 'hidden' : ''} p-4 bg-primary text-white w-18`}>JoinStream</button>
                     <Video participants={participants} />
 
-                </div>
-                <div>
-                    <div className='min-h-screen w-56 bg-white overflow-hidden absolute right-0'>
-                        chat
-                    </div>
                 </div>
 
                 <div id="buttons" className='grid text-center fixed bottom-2 grid-cols-4 gap-6 left-[45%]'>
@@ -185,6 +181,13 @@ const Utopia_meet = () => {
                     <button className=' bg-red p-3'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z" /></svg>
                     </button>
+                </div>
+
+                <div>
+                    <div className='min-h-screen w-[25vw] overflow-hidden bg-grey  fixed right-0 bottom-0'>
+                        <ChatRoom room={room} />
+
+                    </div>
                 </div>
             </section>
         </>

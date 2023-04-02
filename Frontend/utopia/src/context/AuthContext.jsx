@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (authToken) {
             localStorage.setItem("token", JSON.stringify(authToken))
+            navigate('/')
             setIsAuthenticated(true)
         }
     }, [authToken])
@@ -40,9 +41,8 @@ export const AuthProvider = ({ children }) => {
             })
         }).then(res => res.json())
             .then((data) => {
-                setAuthtoken(data.token['access'])
-
-                console.log(data.msg + " " + JSON.parse(JSON.stringify(data.token)))
+                setAuthtoken(data.token.access)
+                console.log(data.msg)
             }).catch((errors) => console.log(errors))
     }
 
