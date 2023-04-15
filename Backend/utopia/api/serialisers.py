@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Room
+# from django.contrib.auth import get_user, get_user_model
+# from rest_framework.serializers import Serializer
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -9,9 +11,12 @@ class RoomSerializer(serializers.ModelSerializer):
 
 
 class MyRoomSerializer(serializers.ModelSerializer):
+
+    created_at = serializers.DateTimeField(format="%d-%m-%Y %H:%M %p")
+
     class Meta:
         model = Room
-        fields = ('user', 'name', 'created_at')
+        fields = ('user', 'name', 'code', 'created_at')
 
 
 class createRoomSerializer(serializers.ModelSerializer):

@@ -15,8 +15,6 @@ class MessageView(APIView):
     lookup_url_kwargs = 'code'
 
     def post(self, request, format=None):
-        # username = User.objects.get(username=request.user.username)
-        # print(username)
         username = self.request.user.username
         channel_name = request.data['channel']
         print(channel_name)
@@ -27,8 +25,6 @@ class MessageView(APIView):
                                   'message': message
                               })
         serialisers = self.serializer_class(data=request.data)
-        # serialisers.data["username"] = username
-        # need to create a serializer
         if(serialisers.is_valid()):
             user = request.user
             chat = chatRoom(user=user, username=username,

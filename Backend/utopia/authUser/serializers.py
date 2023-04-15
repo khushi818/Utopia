@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User, UserProfile
+from rest_framework.fields import CurrentUserDefault
 
 
 class LoginSerializer(serializers.Serializer):
@@ -26,11 +27,6 @@ class RefreshSerializer(serializers.Serializer):
     refresh = serializers.CharField()
 
 
-# class CustomUserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         exclude = ("password", )
-
 class UserSeriliazer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -39,6 +35,8 @@ class UserSeriliazer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    image_url = serializers.ImageField(required=False)
+
     class Meta:
         model = UserProfile
         fields = '__all__'

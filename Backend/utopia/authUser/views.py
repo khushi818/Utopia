@@ -68,19 +68,34 @@ class UserView(APIView):
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserProfileSerializer
-#     lookup_field = 'username'
-    queryset = UserProfile.objects.all()
+# #     lookup_field = 'username'
+    # queryset = UserProfile.objects.all()
 
-    def get(self, request, pk, format=None):
-        profile = UserProfile.objects.get(pk=pk)
+    def get(self, request, username, format=None):
+        profile = UserProfile.objects.get(username=username)
         serialiser = UserProfileSerializer(profile)
         return Response(serialiser.data, status=status.HTTP_200_OK)
 
+    # def post(self, request, format=None):
+    #     profile = UserProfile.objects.create(username=request.user)
+    #     serialiser = UserProfileSerializer(
+    #         profile)
+    #     if(serialiser.is_valid()):
+    #         serialiser.save()
+    #         return Response(serialiser.data, status=status.HTTP_201_CREATED)
+    #     return Response(serialiser.data, status=status.HTTP_400_BAD_REQUEST)
+
     def put(self, request, format=None):
-        profile = UserProfile.objects.get(user=request.user)
+        profile = UserProfile.objects.get(username=request.user)
         serialiser = UserProfileSerializer(
             profile, data=request.data, partial=True)
         if(serialiser.is_valid()):
             serialiser.save()
             return Response(serialiser.data, status=status.HTTP_200_OK)
         return Response(serialiser.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class UserProfileView(generics.ListAPIView):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = UserProfileSerializer
+#     queryset = UserProfile.objects.all()

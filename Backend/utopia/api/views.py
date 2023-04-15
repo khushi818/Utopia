@@ -32,15 +32,11 @@ class GetRoom(APIView):
 
 
 class UserRooms(APIView):
-    lookup_url_kwargs = 'username'
     permission_classes = [IsAuthenticated]
     renderer_classes = [JSONRenderer]
 
     def get(self, request, format=None):
-        user = self.request.user
-        rooms = Room.objects.filter(user=user)
-        # username = self.request.user.username
-        # request.data['username'] = self.request.user.username
+        rooms = Room.objects.filter(user=request.user)
         serialiser = MyRoomSerializer(rooms, many=True)
         return Response(serialiser.data)
 
