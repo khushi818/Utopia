@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { createClient, createCameraVideoTrack, createCustomAudioTrack } from "agora-rtc-react";
 import { useNavigate, useParams } from 'react-router-dom'
 import Video from '../components/Video'
 import ChatRoom from '../components/ChatRoom';
 import { useClient, useUsers, useStart } from '../context/MeetContext'
+import Pusher from 'pusher-js'
 
 const Utopia_meet = () => {
     let { code } = useParams()
@@ -19,7 +20,7 @@ const Utopia_meet = () => {
     let rtc = useClient()
     let [users, setUsers] = useUsers()
     let [start, setStart] = useStart()
-
+    let pusher = null
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/agora/?channel=${code}`,
@@ -33,6 +34,10 @@ const Utopia_meet = () => {
                 setUid(data.uid)
                 console.log(data.token)
             })
+           console.log(uid)
+        pusher = new Pusher('3b09562247736515bfb2', {
+            cluster: 'ap2'
+        });
         // init()
     }, [room])
 
@@ -142,9 +147,11 @@ const Utopia_meet = () => {
 
     const handleLeave = async (e) => {
         // Destroy the local audio and video tracks.
-        await rtc.current.localAudioTrack.close();
-        await rtc.current.localVideoTrack.close();
-        await rtc.current.client.leave();
+        if (rtc.current.localAudioTrack && rtc.current.localVideoTrack && rtc.current.client.leave) {
+            await rtc.current.localAudioTrack.close();
+            await rtc.current.localVideoTrack.close();
+            await rtc.current.client.leave();
+        }
         sessionStorage.removeItem('uid')
         navigate("/")
         setUsers([])

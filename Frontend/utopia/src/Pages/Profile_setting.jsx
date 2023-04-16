@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Events from '../components/Events'
 import Activity from '../components/Activity'
+import ProfileEdit from '../components/ProfileEdit'
 
 const Profile_setting = () => {
     return (
@@ -10,9 +11,7 @@ const Profile_setting = () => {
                 <Navbar />
             </div>
 
-            <form>
-
-            </form>
+            <ProfileEdit/>           
         </section>
     )
 }

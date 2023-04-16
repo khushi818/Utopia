@@ -18,7 +18,7 @@ function App() {
         <Route element={<Dashboard />} path="/" />
         {/* </Route> */}
         <Route element={<Profile />} path="/profile" exact />
-        <Route element={<Profile_setting />} path="/profile_setting" exact />
+        <Route element={<Profile_setting />} path="/setting/profile" exact />
         <Route element={<Notification />} path="/notification" exact />
         <Route element={<Utopia_meet />} path="/utopia_meet/:code" exact />
         <Route path="/login" element={<Login />} exact />
