@@ -43,7 +43,10 @@ export const AuthProvider = ({ children }) => {
             .then((data) => {
                 setAuthtoken(data.token.access)
                 console.log(data.msg)
-            }).catch((errors) => console.log(errors))
+            }).catch((errors) =>{
+             alert("something went wrong! try again")   
+             console.log(errors)
+            })
     }
 
     const UserDetails = async () => {
@@ -56,11 +59,14 @@ export const AuthProvider = ({ children }) => {
             }
         }).then(res => res.json())
             .then((data) => setUserData(data))
-            .catch((errors) => console.log(errors))
+            .catch((errors) => {
+                console.log(errors)
+                alert("something went wrong! try again")
+            })
     }
 
 
-    const registerUser = async (username, password) => {
+    const registerUser = async (username,email, password) => {
         await fetch("http://127.0.0.1:8000/api/user/register/", {
             method: "POST",
             headers: {
@@ -75,7 +81,10 @@ export const AuthProvider = ({ children }) => {
             .then((data) => {
                 console.log(data.msg)
                 navigate('/login')
-            }).catch((errors) => console.log(errors))
+            }).catch((errors) => {
+                console.log(errors)
+                alert("something went wrong! try again")
+            })
     };
 
     const logoutUser = () => {

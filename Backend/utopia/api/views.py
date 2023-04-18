@@ -6,8 +6,15 @@ from rest_framework.renderers import JSONRenderer
 from .serialisers import RoomSerializer, createRoomSerializer, MyRoomSerializer
 from .models import Room
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import filters
 # Create your views here.
+
+
+class searchView(generics.ListAPIView):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
 
 
 class RoomView(generics.ListAPIView):
@@ -90,7 +97,6 @@ class CreateRoomView(APIView):
 
 
 class leaveRoom(APIView):
-
     def post(self, request, format=None):
         if 'room_code' in self.request.session:
             self.request.session.pop('room_code')

@@ -23,13 +23,13 @@ const Navbar = () => {
                         <li className="min-w-max">
                             <a href="#" className="bg group flex items-center space-x-4 rounded-full px-4 py-3 text-gray-600">
                                 <img src="/notification.svg" className="inline p-1 text-grey" alt="notify-icon" />
-                                <span className="group-hover:text-gray-700">Notification</span>
+                                <span className="group-hover:text-gray-700">Coming soon</span>
                             </a>
                         </li>
                         <li className="min-w-max">
                             <Link to="/" className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
                                 <img src="/favourite.svg" className="inline p-1 text-grey" alt="icon" />
-                                <span className="group-hover:text-gray-700">Bookmarks</span>
+                                <span className="group-hover:text-gray-700">Coming soon</span>
                             </Link>
                         </li>
                         <li className="min-w-max">
@@ -48,7 +48,10 @@ const Navbar = () => {
                         </svg>
                         <span className="group-hover:text-gray-700">Settings</span>
                     </a>
+                    <div className='flex items-center justify-start ml-4 gap-4'>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z" /></svg>
                     <button onClick={logoutUser}>logout</button>
+                    </div>
                 </div>
             </div>
         </div>

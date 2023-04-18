@@ -1,15 +1,17 @@
-import { React, useEffect, useState } from 'react'
+import { React, useCallback, useEffect, useMemo, useState } from 'react'
 import Navbar from '../components/Navbar'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate , Link} from 'react-router-dom'
 import CreateRoom from '../components/CreateRoom'
 import { useAuthContext } from '../context/AuthContext'
 
 const Profile = () => {
+    const myrooms = JSON.parse(localStorage.getItem('data')) 
     const [hidden, setHidden] = useState('hidden')
     const [disable, setDisable] = useState(false)
     const [dropdown,setDropdown] = useState(false)
     const [rooms, setRooms] = useState([])
-    const { authToken } = useAuthContext()
+    const [data, setData] = useState([])
+    const { authToken, userData ,UserDetails } = useAuthContext()
     const navigate = useNavigate()
 
     const handleCreateEdit = (e) => {
@@ -18,6 +20,25 @@ const Profile = () => {
     }
 
     useEffect(() => {
+        UserDetails()
+        if(userData)
+        {
+            console.log(userData)
+            fetch(`http://127.0.0.1:8000/api/user/profile/${userData.username}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${authToken}`,
+                "Content-Type": "application/json"
+            }
+        }).then((res) => res.json())
+            .then((data) => { 
+                 setData(data)
+                 console.log(data)
+            }).catch(errors => {
+                console.log(errors)
+            })
+        }
+
         fetch("http://127.0.0.1:8000/myrooms", {
             method: 'GET',
             headers: {
@@ -27,13 +48,17 @@ const Profile = () => {
         }).then((res) => res.json())
             .then((data) => {
                 console.log(data)
+                localStorage.setItem('data', JSON.stringify(data))
+                console.log(myrooms)
+                // setRooms(myrooms)
                 setRooms(data)
                 console.log(rooms)
             }).catch(errors => {
                 navigate('/login')
                 console.log(errors)
             })
-    }, [authToken])
+    }, [])
+
 
     return (
         <section id = "profile-section" className='bg-main dark:bg-dark'>
@@ -48,9 +73,8 @@ const Profile = () => {
 
                 <div className="flex flex-col justify-center items-center max-w-full">
                     <button
-                        // onClick={handleProfileEdit}
                         className={` ${disable ? 'disabled' : ''} bg-primary w-24 absolute mt-2 right-10 top-0 z-10  text-white rounded-md py-2 px-41`}>
-                        Edit
+                        <Link to = "/setting/profile">Edit</Link>
                     </button>
 
                     <button className={`${disable ? 'disabled' : ''} w-36 absolute mt-2 right-40 top-0 z-10 bg-primary text-white rounded-md py-2 px-4`}
@@ -60,15 +84,17 @@ const Profile = () => {
 
                      
                     <div id = "profile-container" className='flex justify-center items-center mt-32 flex-col gap-4'>
-                        <img src="/myAvatar.png" className=' w-32 rounded-full border border-dark' />
+                        <img src={data.image_url} className=' w-32 rounded-full border border-dark' />
                         <div className='flex items-center flex-col'>
-                            <h5 className='text-lg text-center'>Khushi</h5>
-                            <h5 className='text-sm'>@khushi818</h5>
+                            <h5 className='text-lg text-center'>{data.first_name + '' + data.last_name}</h5>
+                            <h5 className='text-sm'>{'@' + data.username}</h5>
                         </div>
                         <div>
-                            <p className='text-[14px] px-20 pt-8 max-w-4xl text-center'>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis ab qui nostrum recusandae praesentium, ratione dignissimos, cupiditate, reiciendis in accusamus culpa laboriosam impedit sequi ullam voluptas soluta blanditiis deleniti earum distinctio quisquam facere optio mollitia nobis. Dolorem perferendis cumque nam eligendi
-                                quaerat, dolor fugit praesentium ullam, amet minima cupiditate? Quos.
+                            <p className='text-[16px] px-20 max-w-4xl text-center'>
+                               {data.caption}
+                            </p>
+                            <p className='text-[14px] px-20 pt-3 max-w-4xl text-center'>
+                               {data.about}
                             </p>
                         </div>
                     </div>
