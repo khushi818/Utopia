@@ -1,3 +1,4 @@
 /Backend/**/requirements.txt
 /Backend/**/freeze
 /Frontend/**/yarn-error.log
+.env

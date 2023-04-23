@@ -7,7 +7,7 @@ import ChatRoom from '../components/ChatRoom';
 import { useClient, useUsers, useStart } from '../context/MeetContext'
 import Pusher from 'pusher-js'
 import { useAuthContext } from '../context/AuthContext';
-import { key } from '../../secret_key'
+import key  from '../../secret_key'
 
 const Utopia_meet = () => {
     let { code } = useParams()
