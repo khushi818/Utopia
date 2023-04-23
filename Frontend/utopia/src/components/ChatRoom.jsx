@@ -19,7 +19,7 @@ const ChatRoom = ({ room }) => {
 
         Pusher.logToConsole = true;
 
-        let pusher = new Pusher('3b09562247736515bfb2', {
+        let pusher = new Pusher( `${process.env.REACT_APP_PUSHER_ID}`, {
             cluster: 'ap2'
         });
 

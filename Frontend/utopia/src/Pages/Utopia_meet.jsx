@@ -5,9 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Video from '../components/Video'
 import ChatRoom from '../components/ChatRoom';
 import { useClient, useUsers, useStart } from '../context/MeetContext'
-import Pusher from 'pusher-js'
 import { useAuthContext } from '../context/AuthContext';
-import key  from '../../secret_key'
+// import { key } from '../../secret_key'
 
 const Utopia_meet = () => {
     let { code } = useParams()
@@ -25,7 +24,6 @@ const Utopia_meet = () => {
     const [isSharing ,setIsSharing] = useState(false)
     const [screenTrack ,setScreenTrack] = useState(null)
     const { userData } = useAuthContext()
-    let pusher = null
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/agora/?channel=${code}`,
@@ -41,17 +39,12 @@ const Utopia_meet = () => {
                 console.log(data.token)
             })
            console.log(uid)
-        pusher = new Pusher(key.PUSHER_ID, {
-            cluster: 'ap2'
-        });
 
-        
-        // init()
     }, [room])
 
     /* host */
     let init = async () => {
-        const app_Id = key.APP_ID
+        const app_Id = `${process.env.REACT_APP_APP_ID}`
         rtc.current.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
         initClientEvents()
