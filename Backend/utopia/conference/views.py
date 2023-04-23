@@ -4,8 +4,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import APIView
 from agora_token_builder import RtcTokenBuilder
 from .serializers import AgoraSerializer
+from rest_framework.permissions import IsAuthenticated
 import random
 import time
+import os
 
 # class AgoraSessionViewSet(viewsets.ModelViewSet):
 #     queryset = AgoraSession.objects.all()
@@ -17,9 +19,8 @@ class create_agora_session(APIView):
 
     def get(self, request):
         lookup_url_kwargs = 'channel'
-
-        app_Id = "50aa357a11604d798b12088f413a4efa"
-        app_certificate = "4e265a154f73461b93da9c7a93da3f10"
+        app_Id = os.getenv('APP_ID')
+        app_certificate = os.getenv('APP_CERTIFICATE')
         Channel_name = request.GET.get(lookup_url_kwargs)
         uid = random.randint(1, 500)
         expirationTimeInSeconds = 3600 * 24

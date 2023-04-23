@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin
@@ -74,7 +74,8 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=100, blank=True)
     caption = models.CharField(max_length=250, blank=True)
     about = models.TextField(blank=True)
-    image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image_url = models.ImageField(
+        _("Image"), upload_to=upload_to, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

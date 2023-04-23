@@ -10,7 +10,7 @@ from .models import UserProfile, User
 from django.shortcuts import get_object_or_404
 # from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 # generating tokens
 
 
@@ -68,22 +68,12 @@ class UserView(APIView):
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserProfileSerializer
-# #     lookup_field = 'username'
-    # queryset = UserProfile.objects.all()
+    parser_classes = [MultiPartParser, FormParser]
 
     def get(self, request, username, format=None):
         profile = UserProfile.objects.get(username=username)
         serialiser = UserProfileSerializer(profile)
         return Response(serialiser.data, status=status.HTTP_200_OK)
-
-    # def post(self, request, format=None):
-    #     profile = UserProfile.objects.create(username=request.user)
-    #     serialiser = UserProfileSerializer(
-    #         profile)
-    #     if(serialiser.is_valid()):
-    #         serialiser.save()
-    #         return Response(serialiser.data, status=status.HTTP_201_CREATED)
-    #     return Response(serialiser.data, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, format=None):
         profile = UserProfile.objects.get(username=request.user)
