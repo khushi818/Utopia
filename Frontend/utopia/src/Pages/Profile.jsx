@@ -84,7 +84,7 @@ const Profile = () => {
 
                      
                     <div id = "profile-container" className='flex justify-center items-center mt-32 flex-col gap-4'>
-                        <img src={data.image_url} className=' w-32 rounded-full border border-dark' />
+                        <img src="/myAvatar.png" className=' w-32 rounded-full border border-dark' />
                         <div className='flex items-center flex-col'>
                             <h5 className='text-lg text-center'>{data.first_name + '' + data.last_name}</h5>
                             <h5 className='text-sm'>{'@' + data.username}</h5>

@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("token", JSON.stringify(authToken))
             navigate('/')
             setIsAuthenticated(true)
+            UserDetails()
         }
     }, [authToken])
 

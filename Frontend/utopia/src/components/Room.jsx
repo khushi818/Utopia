@@ -1,14 +1,33 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { useUsers } from '../context/MeetContext'
+import { useAuthContext } from '../context/AuthContext'
 
 const Room = ({ room }) => {
     const { code } = useParams()
     const navigate = useNavigate()
-
+    const users = useUsers()[0]
+    const { authToken } = useAuthContext()
     /* To join room */
     const handleJoin = (e) => {
-        navigate(`/utopia_meet/${room.code}`)
+        const requestOption ={
+            method :"POST",
+            headers: { 
+                "Authorization": `Bearer ${authToken}`,               
+             },
+        }
+        fetch(`http://127.0.0.1:8000/join-room/?code=${code}`, requestOption)
+        .then((res) => res.json())
+        .then(data => {
+            console.log(data)
+            navigate(`/utopia_meet/${room.code}`)
+        })
+        .catch(error => {
+            alert("something went wrong")
+            console.log(error)
+        })
+        
     }
     return (
         <div>
@@ -18,15 +37,15 @@ const Room = ({ room }) => {
                         <div className='flex justify-between items-center'>
                             <div className='flex justify-center items-center'>
                                 <img className="w-8 rounded-full" src="/myAvatar.png" alt="user-image" />
-                                <h3 className='p-2 text-sm'>username</h3>
+                                <h3 className='p-2 text-sm'>{room.user}</h3>
                             </div>
-                            <p className='text-sm '>16 Feb, 2:00 PM</p>
+                            <p className='text-sm '>{room.created_at}</p>
                         </div>
                         <div className='p-4 font-bold text-[18px]'>
                             <h3>{room.name}</h3>
                         </div>
                         <div className='flex justify-between items-center '>
-                            <p className='text-sm '>8 views</p>
+                            <p className='text-sm '>{users.length + "views"} </p>
                             <button className='text-sm border px-6 py-2 rounded-md hover:bg-secondary hover:text-white'
                                 onClick={handleJoin}
                             >JOIN</button>

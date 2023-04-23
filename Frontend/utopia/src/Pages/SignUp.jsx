@@ -79,7 +79,7 @@ const SignUp = () => {
                     </div>
                     <button type="submit"
                     onClick={handleSubmit} 
-                    class="text-white bg-secondary hover:text-dark  hover:bg-white border hover:border-dark focus:ring-4 focus:ring-secondary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Create Account</button>
+                    className="text-white bg-secondary hover:text-dark  hover:bg-white border hover:border-dark focus:ring-4 focus:ring-secondary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Create Account</button>
                 </div>
             </form>
         </Auth>

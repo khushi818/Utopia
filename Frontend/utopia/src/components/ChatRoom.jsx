@@ -56,21 +56,21 @@ const ChatRoom = ({ room }) => {
         console.log('not triggered')
     }
     return (
-        <>
-            <div className='space-y-12 grid grid-cols-1 p-5 overscroll-y-auto'>
+        <section className='flex flex-col justify-center items-start'>
+            <div className='flex flex-col gap-3  w-[25vw] h-[80vh] scroll overscroll-y-auto overscroll-x-none '>
                 {chat.length && chat.map((chat, index) => {
                     return (
-                        <div key={index} className={`place-self-start space-y-1`}>
-                            <p className='text-sm font-bold text-white text-left'>{chat.username}</p>
-                            <div className={`bg-dark text-white py-2 px-4 rounded-2xl`}>
+                        <div key={index} className={`place-self-start`}>
+                            <p className='text-sm font-bold text-dark text-left'>{chat.username}</p>
+                            <div className={`bg-primary text-white py-2 px-4 rounded-2xl`}>
                                 {chat.message}
                             </div>
                         </div>
                     )
                 })}
             </div>
-
-            <input className='w-[50vw] p-4 border border-dark bg-white absolute bottom-0 right-2 left-1  rounded-md'
+           <div >
+            <input className='w-[25vw] p-4 border border-dark bg-white rounded-md'
                 onChange={(e) => {
                     setMessage(e.target.value)
                 }}
@@ -79,7 +79,8 @@ const ChatRoom = ({ room }) => {
                 value={message}
                 placeholder='Type.....'
             />
-        </>
+            </div>
+        </section>
     )
 }
 

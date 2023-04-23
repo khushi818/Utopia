@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 
-const Participant = ({ user }) => {
+const Participant = ({ user}) => {
     const vidDiv = React.createRef()
     const playVideo = () => {
         user.videoTrack.play(`user-${user.uid}`)
@@ -19,7 +19,7 @@ const Participant = ({ user }) => {
         <>
             <div class="video-container" id={`user-container-${user.uid}`} ref={vidDiv}>
                 <div class="video-player" id={`user-${user.uid}`}></div>
-                <div class="username-wrapper"><span class="user-name">Name</span></div>
+                <div class="username-wrapper"><span class="user-name">{user.username}</span></div>
             </div>
         </>
     )

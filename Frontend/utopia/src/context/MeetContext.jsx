@@ -40,7 +40,7 @@ export const MeetProvider = ({ children }) => {
                     {children}
                 </StartContext.Provider>
             </UserContext.Provider>
-        // </ClientContext.Provider>
+         </ClientContext.Provider>
     );
 }
 

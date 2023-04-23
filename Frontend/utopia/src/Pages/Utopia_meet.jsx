@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import AgoraRTC from "agora-rtc-sdk-ng";
-import { createClient, createCameraVideoTrack, createCustomAudioTrack } from "agora-rtc-react";
+import { createScreenVideoTrack } from "agora-rtc-react";
 import { useNavigate, useParams } from 'react-router-dom'
 import Video from '../components/Video'
 import ChatRoom from '../components/ChatRoom';
 import { useClient, useUsers, useStart } from '../context/MeetContext'
 import Pusher from 'pusher-js'
+import { useAuthContext } from '../context/AuthContext';
+import { key } from '../../secret_key'
 
 const Utopia_meet = () => {
     let { code } = useParams()
@@ -20,6 +22,9 @@ const Utopia_meet = () => {
     let rtc = useClient()
     let [users, setUsers] = useUsers()
     let [start, setStart] = useStart()
+    const [isSharing ,setIsSharing] = useState(false)
+    const [screenTrack ,setScreenTrack] = useState(null)
+    const { userData } = useAuthContext()
     let pusher = null
 
     useEffect(() => {
@@ -27,6 +32,7 @@ const Utopia_meet = () => {
             {
                 method: "GET",
                 headers: { "content-Type": "application/JSON" },
+                
             }
         ).then((res) => res.json())
             .then((data) => {
@@ -35,15 +41,17 @@ const Utopia_meet = () => {
                 console.log(data.token)
             })
            console.log(uid)
-        pusher = new Pusher('3b09562247736515bfb2', {
+        pusher = new Pusher(key.PUSHER_ID, {
             cluster: 'ap2'
         });
+
+        
         // init()
     }, [room])
 
     /* host */
     let init = async () => {
-        const app_Id = "50aa357a11604d798b12088f413a4efa"
+        const app_Id = key.APP_ID
         rtc.current.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
         initClientEvents()
@@ -52,15 +60,19 @@ const Utopia_meet = () => {
         rtc.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
         // Create a video track from the video captured by a camera.
         rtc.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+
+        // const screenTrack = await AgoraRTC.createScreenVideoTrack();
+        // setScreenTrack(screenTrack)
+        // await rtc.current.client.publish([screenTrack])
         //Adding a User to the Users State
         setUsers((prevUsers) => {
-            return [...prevUsers, { uid: UID, audio: true, video: true, client: true, videoTrack: rtc.current.localVideoTrack }]
+            return [...prevUsers, { uid: UID, audio: true, video: true, client: true, videoTrack: rtc.current.localVideoTrack}]
         })
         //Publishing your Streams
         await rtc.current.client.publish([rtc.current.localAudioTrack, rtc.current.localVideoTrack]);
         setStart(true)
     }
-
+     
     const JoinHandle = () => {
         init()
         setHidden(true)
@@ -110,7 +122,7 @@ const Utopia_meet = () => {
             }
         });
     }
-
+     
     /* fetch room*/
     useEffect(() => {
         if (dataFetchedRef.current) return;
@@ -127,13 +139,13 @@ const Utopia_meet = () => {
                 console.log(data)
             })
             .catch(error => console.log(error))
-    }, [])
+    }, [])  
 
 
     const handleVideo = (e) => {
         const [user, ...rest] = users
         user.video = !user.video
-        rtc.current.localVideoTrack.setEnabled(user.video);
+        user.videoTrack.setEnabled(user.video)
         setUsers([user, ...rest])
     }
 
@@ -147,6 +159,20 @@ const Utopia_meet = () => {
 
     const handleLeave = async (e) => {
         // Destroy the local audio and video tracks.
+        // const requestOption ={
+        //     method :"POST"
+        // }
+        // fetch('http://127.0.0.1:8000/leave-room/', requestOption)
+        // .then((res) => res.json())
+        // .then(data => {
+        //     console.log(data.message)
+        //     navigate('/')
+        // })
+        // .catch(error => {
+        //     alert("something went wrong")
+        //     console.log(error)
+        // })
+
         if (rtc.current.localAudioTrack && rtc.current.localVideoTrack && rtc.current.client.leave) {
             await rtc.current.localAudioTrack.close();
             await rtc.current.localVideoTrack.close();
@@ -171,7 +197,12 @@ const Utopia_meet = () => {
                 <div className='col-span-2 min-h-screen mt-10 w-full'>
                     {/* video_conference */}
                     <button onClick={JoinHandle} className={`${hidden ? 'hidden' : ''} p-4 bg-primary text-white w-18`}>JoinStream</button>
-                    <Video participants={participants} />
+                    
+                    <div id = "screen_sharing" className={`${isSharing ? 'block' : 'hidden'} bg-dark w-[46vw] h-[46vh] rounded-full`}>
+                          
+                    </div>
+                    <Video participants={participants}/>
+
 
                 </div>
 
@@ -182,20 +213,25 @@ const Utopia_meet = () => {
                     <button className='bg-red p-3' onClick={handleaudio} >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z" /></svg>
                     </button>
-                    <button className='bg-red p-3'>
+                    <button 
+                    className='bg-red p-3'
+                    onClick = {()=> {
+                        setIsSharing(!isSharing)
+                        // if(isSharing)
+                        // {
+                        //     AgoraRTC.createScreenVideoTrack()
+                        // }
+                        // else{
+                            
+                        // }
+                    }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 1v17h24v-17h-24zm22 15h-20v-13h20v13zm-6.599 4l2.599 3h-12l2.599-3h6.802z" /></svg>
                     </button>
-                    <button className=' bg-red p-3'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z" /></svg>
-                    </button>
+                   
                 </div>
-
-                <div>
-                    <div className='min-h-screen w-[25vw] overflow-hidden bg-grey  fixed right-0 bottom-0'>
+                    <div className='h-screen p-2 w-[28vw] overscroll-y bg-white border border-primary'>
                         <ChatRoom room={room} />
-
-                    </div>
-                </div>
+                    </div>            
             </section>
         </>
     )
