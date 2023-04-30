@@ -7,9 +7,10 @@ This project is a real-time communication application that allows users to join 
 Getting Started
 To get started with this project, you'll need to have the following installed on your computer:
 
-*Python 3
-*Yarn
-Once you have Python 3 and Yarn installed, follow these steps:
+* Python 3
+* Yarn
+
+## Instruction
 
 Clone the repository to your local machine.
 * Navigate to the project directory and run yarn install to install the required dependencies for the frontend.
